@@ -156,10 +156,6 @@ public class EditRangeSeekBarView extends View {
         canvas.drawRect(rightRect, mShadow);
 
 
-        Log.e("TAG", "onDraw rangeL" + rangeL);
-        Log.e("TAG", "onDraw range criticalPoint" + criticalPoint);
-        Log.e("TAG", "onDraw rangeR" + rangeR);
-
         //头部和底部的矩形隐藏
         canvas.drawRect(rangeL, thumbPaddingTop + paddingTop, rangeR, thumbPaddingTop + UnitConverter.dpToPx(2) + paddingTop, rectPaint);
         canvas.drawRect(rangeL, getHeight() - UnitConverter.dpToPx(2), rangeR, getHeight(), rectPaint);
@@ -178,17 +174,17 @@ public class EditRangeSeekBarView extends View {
     public void onMove(float currentPosition) {
         //if (currentPosition==0)return;
         mCurrentPosition=currentPosition;
-        if (rangeL < mMinLeftWidth) {
-            rangeL = mMinLeftWidth;
-        }
         rangeL = (mLetterBean.getStartTime() - currentPosition) / mAverageMsPx + criticalPoint;
         rangeR = (mLetterBean.getStartTime() + mLetterBean.getDuration() - currentPosition) / mAverageMsPx + criticalPoint;
-        Log.e("TAG", "ry的起始位置 scrollX" + xDistance);
-        Log.e("TAG", "ry的起始位置 rangeL" + rangeL);
-        Log.e("TAG", "ry的起始位置 rangeR" + rangeR);
-//        if (onUpdateSeekBarProgressListener!=null){
-//            onUpdateSeekBarProgressListener.onMove(rangeL,rangeR);
-//        }
+
+        if (rangeL < mMinLeftWidth) {
+            rangeL = mMinLeftWidth;
+            rangeR = rangeL+aboutSpacing;
+        }
+        if (rangeR > mMaxRightWidth) {
+            rangeR = mMaxRightWidth;
+            rangeL = rangeR - aboutSpacing;
+        }
         invalidate();
     }
 
@@ -232,7 +228,6 @@ public class EditRangeSeekBarView extends View {
                         // 手指没有点在最大最小值上，并且在控件上有滑动事件
                         if (Math.abs(x - mDownMotionX) > mScaledTouchSlop) {
                             setPressed(true);
-                            Log.e(TAG, "没有拖住最大最小值");// 一直不会执行？
                             invalidate();
                             onStartTrackingTouch();
                             trackTouchEvent(event);
@@ -258,7 +253,6 @@ public class EditRangeSeekBarView extends View {
                 }
                 invalidate();
                 pressedThumb = null;// 手指抬起，则置被touch到的thumb为空
-                Log.e("TAG", "ACTION_UP");
                 aboutSpacing = rangeR - rangeL;
                 tempL = rangeL;
 
@@ -270,7 +264,6 @@ public class EditRangeSeekBarView extends View {
                 invalidate();
                 break;
             case MotionEvent.ACTION_POINTER_UP:
-                Log.e("TAG", "ACTION_POINTER_UP");
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
@@ -364,14 +357,6 @@ public class EditRangeSeekBarView extends View {
                 endTime=(rangeR-criticalPoint)*mAverageMsPx+mCurrentPosition;
                 mLetterBean.setStartTime(startTime);
                 mLetterBean.setDuration(endTime-startTime);
-//                if (rangeR > mMaxRightWidth) {
-//                    rangeR = mMaxRightWidth;
-//                    rangeL = rangeR - aboutSpacing;
-//                }
-//                if (rangeL < mMinLeftWidth) {
-//                    rangeL = mMinLeftWidth;
-//                    rangeR = rangeL + aboutSpacing;
-//                }
                 invalidate();
             }
         }

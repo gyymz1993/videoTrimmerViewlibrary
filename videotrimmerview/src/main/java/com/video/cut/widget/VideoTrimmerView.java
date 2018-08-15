@@ -337,6 +337,7 @@ public class VideoTrimmerView extends FrameLayout implements IVideoTrimmerView {
     }
 
 
+
     private void playVideoOrPause() {
         mRedProgressBarPos = mVideoView.getCurrentPosition();
         if (mVideoView.isPlaying()) {

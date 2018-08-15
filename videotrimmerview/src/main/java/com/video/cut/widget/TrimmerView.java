@@ -108,6 +108,25 @@ public class TrimmerView extends FrameLayout implements IVideoTrimmerView {
         mRangeSeekBarView.initRandSeekBarInit(letterBean);
     }
 
+
+    public void deleteImageHotView(BaseLetterBean letterBean){
+        if (imageViewHots.size() > 0) {
+            for (ImageView imageView : imageViewHots) {
+                if (imageView.getId() == letterBean.getId()) {
+                    currentImage = imageView;
+                }
+            }
+        }
+
+        for (int i=0;i<ryHotLayout.getChildCount();i++){
+            if (ryHotLayout.getChildAt(i).getId()==currentImage.getId()){
+                ryHotLayout.removeViewAt(i);
+                imageViewHots.remove(currentImage);
+            }
+        }
+
+    }
+
     public void updataImageViewPosition(float left) {
         if (currentImage != null) {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) currentImage.getLayoutParams();
@@ -131,6 +150,18 @@ public class TrimmerView extends FrameLayout implements IVideoTrimmerView {
                 nestedScrollView.scrollTo((int) scrollX, 0);
             }
         });
+    }
+
+    public void scrollForCurrentPosition(int currentPosition){
+        final float scrollX = getCurrentPosition / mAverageMsPx;
+        mRangeSeekBarView.onMove(getCurrentPosition);
+        this.post(new Runnable() {
+            @Override
+            public void run() {
+                nestedScrollView.scrollTo((int) scrollX, 0);
+            }
+        });
+
     }
 
     public ScrollListenerRecyclerView getmVideoThumbRecyclerView() {
