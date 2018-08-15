@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1f1f27"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <VideoView
+                android:id="@+id/video_loader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+
+            <ProgressBar
+                android:id="@+id/video_loading"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/dialog_loading"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
+        android:layout_weight="1"
+        android:background="#1f1f27"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/video_shoot_tip"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            tools:text="滑动边缘选择视频时段" />
+
+        <FrameLayout
+            android:id="@+id/video_frames_layout"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:layout_below="@+id/video_shoot_tip"
+            android:layout_marginTop="15dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/video_frames_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="35dp"
+                tools:background="@android:color/holo_green_light" />
+
+
+            <!--遮挡滑出去的recyleview-->
+            <View
+                android:layout_width="35dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="35dp"
+                android:background="#1f1f27" />
+
+            <ImageView
+                android:id="@+id/positionIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="35dp"
+                android:layout_marginLeft="35dp"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_seek_bar"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="35dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/shadow_translucent" />
+
+                <LinearLayout
+                    android:id="@+id/seekBarLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="95dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:orientation="vertical" />
+
+                <View
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:background="#1f1f27" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/video_frames_layout"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/cancelBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="返回"
+                android:textColor="@android:color/white"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:id="@+id/icon_video_play"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:padding="12dp"
+                android:src="@drawable/icon_video_play_black" />
+
+            <TextView
+                android:id="@+id/finishBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="完成"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="16dp" />
+        </FrameLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.video.cut">
+
+    <uses-sdk tools:overrideLibrary="com.github.hiteshsondhi88.libffmpeg" />
+</manifest>
